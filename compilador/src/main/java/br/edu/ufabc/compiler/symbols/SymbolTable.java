@@ -3,13 +3,17 @@ package br.edu.ufabc.compiler.symbols;
 import br.edu.ufabc.compiler.exception.SemanticException;
 import br.edu.ufabc.compiler.expression.Expression;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class SymbolTable {
 
     private final HashMap<String, Identifier> symbols;
+    private final List<String> unusedVariables;
     public SymbolTable() {
         this.symbols = new HashMap<>();
+        this.unusedVariables = new ArrayList<>();
     }
 
     public Identifier get(String key) {
@@ -43,6 +47,15 @@ public class SymbolTable {
             throw new SemanticException(String.format("A variável '%s' não foi inicializada.", name));
     }
 
+    public void checkForUnusedVariables() {
+        this.symbols.values().forEach( i -> {
+            if(i.getValue().isEmpty())
+                unusedVariables.add("A variável '"+i.getName()+"' foi declarada mas não fui utilizada.\n");
+        });
+        if(!unusedVariables.isEmpty())
+            throw new SemanticException(unusedVariables.stream().reduce("", String::concat));
+    }
+
     public boolean exists(String key) {
         return this.symbols.containsKey(key);
     }
@@ -53,4 +66,5 @@ public class SymbolTable {
                 "symbols=" + symbols +
                 '}';
     }
+
 }

@@ -48,6 +48,7 @@ prog     : 'programa'
             declara? bloco? 'fimprog.'
             {
                 program.setComandos(stack.pop());
+                symbolTable.checkForUnusedVariables();
             }
          ;
 

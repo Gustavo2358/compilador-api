@@ -203,6 +203,7 @@ public class GrammarParser extends Parser {
 			match(T__1);
 
 			                program.setComandos(stack.pop());
+			                symbolTable.checkForUnusedVariables();
 			            
 			}
 		}

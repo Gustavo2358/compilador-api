@@ -1,5 +1,7 @@
 package br.edu.ufabc.compiler;
 
+import br.edu.ufabc.compiler.exception.CompilationException;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,6 +17,8 @@ public class Main {
             generateTarget(new Compiler().compileToJavaScript(content), "src.js");
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (CompilationException e){
+            System.err.println(e.getMessage());
         }
     }
     private static void generateTarget(String source, String filename) {
