@@ -1,5 +1,4 @@
-let a, b, u;
-let c;
+let a, b;
 let d;
 let t;
 t = "teste" ;

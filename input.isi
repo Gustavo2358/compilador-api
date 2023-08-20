@@ -1,10 +1,12 @@
 programa
 
-inteiro a, b;
-real c;
+inteiro a, b, i;
+#real c;
 logico d;
 texto t;
 
+
+#c := 2.2 ;
 t := "teste";
 
 # use o simbolo '#' para comentários de linha
