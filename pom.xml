@@ -15,6 +15,7 @@
 	<description>projeto final para a disciplina de compiladores da ufabc.</description>
 	<modules>
 		<module>api</module>
+		<module>compilador</module>
 	</modules>
 	<packaging>pom</packaging>
 	<properties>
@@ -24,6 +25,13 @@
 	</properties>
 	<dependencyManagement>
 		<dependencies>
+
+			<dependency>
+				<groupId>br.edu.ufabc</groupId>
+				<artifactId>compilador</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter</artifactId>

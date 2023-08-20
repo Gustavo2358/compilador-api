@@ -1,40 +1,47 @@
 package br.edu.ufabc.api.controller;
 
+import br.edu.ufabc.api.Service.CompilerService;
+import br.edu.ufabc.api.response.ApiResponse;
+import br.edu.ufabc.compiler.exception.CompilationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.util.Collections;
+import java.util.List;
 
 @RestController
 @RequestMapping("compiler-api/v1/file-upload")
 public class CompilerController {
 
-    @GetMapping("/teste")
-    public String teste(){
-        return "funciona";
+    private final CompilerService compilerService;
+
+    public CompilerController(CompilerService compilerService) {
+        this.compilerService = compilerService;
     }
 
     @PostMapping("/to-java")
-    public ResponseEntity<String> generateJavaCode(@RequestParam("file") MultipartFile sourceFile) throws IOException {
+    public ResponseEntity<ApiResponse<String>> generateJavaCode(@RequestParam("file") MultipartFile sourceFile) throws IOException {
 
-        InputStream inputStream = sourceFile.getInputStream();
-        return ResponseEntity.ok(inputStreamToString(inputStream));
+        String javaCode = compilerService.compile(sourceFile);
+        ApiResponse<String> response = new ApiResponse<>(
+                true,
+                "Compilation Successful",
+                javaCode,
+                Collections.emptyList());
+        return ResponseEntity.ok(response);
     }
-    public String inputStreamToString(InputStream is) throws IOException {
-        StringBuilder sb = new StringBuilder();
-        String line;
 
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
-            while ((line = br.readLine()) != null) {
-                sb.append(line);
-                sb.append(System.lineSeparator());
-            }
-        }
-        return sb.toString();
+    @ExceptionHandler(CompilationException.class)
+    public ResponseEntity<ApiResponse<String>> handleCompilationError(CompilationException ex) {
+        ApiResponse<String> response = new ApiResponse<>(false,
+                "Compilation failed",
+                "",
+                List.of(ex.getMessage().split("\\n")));
+
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
 }

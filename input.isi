@@ -1,0 +1,40 @@
+programa
+
+inteiro a, b;
+real c;
+logico d;
+texto t;
+
+t := "teste";
+
+# use o simbolo '#' para comentários de linha
+#e := a;
+
+a := 2 * (1 + 3)//2;
+b := 2;
+
+leia(a);
+leia(b);
+
+#d := VERDADEIRO;
+#enquanto(d){a:=1;}
+
+d := a>b && (1<3 || 2 < 4);
+
+se(a<b && (1<3 || 2 < 4)){
+    escreva(a);
+} senao {
+    escreva(b);
+}
+
+enquanto(a < b){
+    a := a + 1;
+    escreva(t);
+}
+
+faca {
+    a := a +1;
+    escreva("teste 2");
+}enquanto (a < b);
+
+fimprog.
