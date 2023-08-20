@@ -25,7 +25,19 @@ public class CompilerController {
     @PostMapping("/to-java")
     public ResponseEntity<ApiResponse<String>> generateJavaCode(@RequestParam("file") MultipartFile sourceFile) throws IOException {
 
-        String javaCode = compilerService.compile(sourceFile);
+        String javaCode = compilerService.compileToJava(sourceFile);
+        ApiResponse<String> response = new ApiResponse<>(
+                true,
+                "Compilation Successful",
+                javaCode,
+                Collections.emptyList());
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/to-javaScript")
+    public ResponseEntity<ApiResponse<String>> generateJavaScriptCode(@RequestParam("file") MultipartFile sourceFile) throws IOException {
+
+        String javaCode = compilerService.compileToJavaScript(sourceFile);
         ApiResponse<String> response = new ApiResponse<>(
                 true,
                 "Compilation Successful",

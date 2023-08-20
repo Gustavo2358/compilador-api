@@ -19,10 +19,16 @@ public class CompilerService {
         this.compiler = compiler;
     }
 
-    public String compile(MultipartFile sourceFile) throws IOException {
+    public String compileToJava(MultipartFile sourceFile) throws IOException {
         InputStream inputStream = sourceFile.getInputStream();
         return compiler.compileToJava(inputStreamToString(inputStream));
     }
+
+    public String compileToJavaScript(MultipartFile sourceFile) throws IOException {
+        InputStream inputStream = sourceFile.getInputStream();
+        return compiler.compileToJavaScript(inputStreamToString(inputStream));
+    }
+
     public String inputStreamToString(InputStream is) throws IOException {
         StringBuilder sb = new StringBuilder();
         String line;
