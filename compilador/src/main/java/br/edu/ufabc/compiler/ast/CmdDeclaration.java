@@ -5,6 +5,7 @@ import br.edu.ufabc.compiler.symbols.Identifier;
 
 import java.util.List;
 import java.util.StringJoiner;
+import java.util.function.BiFunction;
 
 public class CmdDeclaration implements Command {
 
@@ -16,21 +17,31 @@ public class CmdDeclaration implements Command {
 
     @Override
     public String generateJavaCode() {
+        BiFunction<DataType, String, String> getJavaFormatted = (dt, s) ->
+                String.format("%s %s;\n", dt.getJavaType(), s);
         return ids.size() == 1 ?
-                generateVariableDeclarationCode() :
-                generateVariablesDeclarationCode();
-
+                generateVariableDeclarationCode(getJavaFormatted) :
+                generateVariablesDeclarationCode(getJavaFormatted);
     }
 
-    private String generateVariableDeclarationCode() {
+    @Override
+    public String generateJavaScriptCode() {
+        BiFunction<DataType, String, String> getJavaScriptFormatted = (dt, s) ->
+                String.format("%s %s;\n", "let", s);
+        return ids.size() == 1 ?
+                generateVariableDeclarationCode(getJavaScriptFormatted) :
+                generateVariablesDeclarationCode(getJavaScriptFormatted);
+    }
+
+    private String generateVariableDeclarationCode(BiFunction<DataType,String,String> getFormatted) {
         Identifier identifier = ids.get(0);
-        return getFormatted(identifier.getType(), identifier.getName());
+        return getFormatted.apply(identifier.getType(), identifier.getName());
     }
 
-    private String generateVariablesDeclarationCode() {
+    private String generateVariablesDeclarationCode(BiFunction<DataType,String,String> getFormatted) {
         StringJoiner sj = new StringJoiner(", ");
         ids.forEach(identifier -> sj.add(identifier.getName()));
-        return getFormatted(ids.get(0).getType(), sj.toString());
+        return getFormatted.apply(ids.get(0).getType(), sj.toString());
     }
 
     private static String getFormatted(DataType type, String variablesString) {

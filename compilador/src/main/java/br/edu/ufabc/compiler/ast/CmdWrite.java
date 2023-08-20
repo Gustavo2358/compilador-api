@@ -23,6 +23,11 @@ public class CmdWrite implements Command {
         return "System.out.println(" + (id != null ? id.getName() : text) + ");\n";
     }
 
+    @Override
+    public String generateJavaScriptCode() {
+        return "console.log(" + (id != null ? id.getName() : text) + ");\n";
+    }
+
     public Identifier getId() {
         return id;
     }

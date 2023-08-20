@@ -12,6 +12,7 @@ public class Main {
         try {
             String content = new String(Files.readAllBytes(Paths.get(filePath)));
             generateTarget(new Compiler().compileToJava(content), "Main.java");
+            generateTarget(new Compiler().compileToJavaScript(content), "src.js");
         } catch (IOException e) {
             e.printStackTrace();
         }

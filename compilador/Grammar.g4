@@ -34,6 +34,9 @@ grammar Grammar;
 	public String generateJavaCode(){
 		return program.generateJavaCode();
 	}
+	public String generateJavaScriptCode(){
+		return program.generateJavaScriptCode();
+	}
 
 }
 

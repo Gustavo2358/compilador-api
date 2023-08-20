@@ -28,6 +28,18 @@ public class CmdRead implements Command {
                     "Nao é possível utilizar o comando leia para variáveis do tipo LOGICO");
         };
     }
+
+    @Override
+    public String generateJavaScriptCode() {
+        return switch (id.getType()){
+            case INTEIRO -> id.getName() + " = " + "parseInt(prompt());\n";
+            case REAL -> id.getName() + " = " + "parseFloat(prompt());\n";
+            case TEXTO -> id.getName() + " = " + "prompt();\n";
+            case LOGICO -> throw new SemanticException(
+                    "Nao é possível utilizar o comando leia para variáveis do tipo LOGICO");
+        };
+    }
+
     @Override
     public void run() {
 //        id.setValue(Integer.parseInt(JOptionPane.showInputDialog("Type Your Input")));

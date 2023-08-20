@@ -42,6 +42,16 @@ public class Program {
                     """);
         return strBuilder.toString();
     }
+
+    public String generateJavaScriptCode(){
+
+        StringBuilder strBuilder = new StringBuilder();
+        comandos.forEach(c -> {
+//                System.out.print(c.generateCode());
+            strBuilder.append(c.generateJavaScriptCode());
+        });
+        return strBuilder.toString();
+    }
     public List<Command> getComandos() {
         return comandos;
     }

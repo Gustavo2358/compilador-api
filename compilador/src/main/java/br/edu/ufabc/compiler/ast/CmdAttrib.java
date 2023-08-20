@@ -13,6 +13,11 @@ public class CmdAttrib implements Command{
         return id.getName() + " = " + expr.toString().replace("//", "/") + " ;\n";
     }
 
+    @Override
+    public String generateJavaScriptCode() {
+        return generateJavaCode();
+    }
+
     public CmdAttrib(Identifier id, Expression expr) {
         super();
         this.id = id;

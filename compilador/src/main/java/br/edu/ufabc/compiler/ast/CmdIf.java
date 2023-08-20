@@ -32,10 +32,27 @@ public class CmdIf implements Command{
         for (Command cmd: listaTrue) {
             str.append(cmd.generateJavaCode());
         }
-        if (listaFalse != null /*&& !listaFalse.isEmpty()*/) {
+        if (listaFalse != null ) {
             str2.append("else {\n");
             for (Command cmd: listaFalse) {
                 str2.append(cmd.generateJavaCode());
+            }
+            str2.append("\n}\n");
+        }
+        return "if (" + expr.toString()+ ") {\n "+ str + "\n}\n"+str2;
+    }
+
+    @Override
+    public String generateJavaScriptCode() {
+        StringBuilder str = new StringBuilder();
+        StringBuilder str2 = new StringBuilder();
+        for (Command cmd: listaTrue) {
+            str.append(cmd.generateJavaScriptCode());
+        }
+        if (listaFalse != null ) {
+            str2.append("else {\n");
+            for (Command cmd: listaFalse) {
+                str2.append(cmd.generateJavaScriptCode());
             }
             str2.append("\n}\n");
         }

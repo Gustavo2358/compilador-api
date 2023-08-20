@@ -134,6 +134,9 @@ public class GrammarParser extends Parser {
 		public String generateJavaCode(){
 			return program.generateJavaCode();
 		}
+		public String generateJavaScriptCode(){
+			return program.generateJavaScriptCode();
+		}
 
 
 	public GrammarParser(TokenStream input) {

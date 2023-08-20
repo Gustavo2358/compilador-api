@@ -31,6 +31,13 @@ public class CmdWhile implements Command{
     }
 
     @Override
+    public String generateJavaScriptCode() {
+        StringBuilder str = new StringBuilder();
+        lista.forEach(command -> str.append(command.generateJavaScriptCode()));
+        return "while (" + expr.toString()+ ") {\n "+ str + "\n}\n";
+    }
+
+    @Override
     public void run() {
         // TODO Auto-generated method stub
 

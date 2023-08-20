@@ -124,6 +124,9 @@ public class GrammarLexer extends Lexer {
 		public String generateJavaCode(){
 			return program.generateJavaCode();
 		}
+		public String generateJavaScriptCode(){
+			return program.generateJavaScriptCode();
+		}
 
 
 
